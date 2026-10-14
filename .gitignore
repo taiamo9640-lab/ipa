@@ -1,0 +1,11 @@
+# Output cua qua trinh build, khong commit
+ios-build/out/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+.DS_Store
+
+# LUU Y: KHONG duoc ignore Libraries/*.a
+# GameAssembly + UnityFramework can 2 file nay de link, chung duoc luu bang Git LFS
+# (xem .gitattributes). Neu ignore hoac bo khoi git thi CI se fail voi loi:
+#   "The source path .../Libraries/libil2cpp.a does not exist."

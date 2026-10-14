@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Dung cho Xcode Organizer > Distribute App > Ad Hoc, hoac:
+  xcodebuild -exportArchive -archivePath out/NroChamPa.xcarchive \
+    -exportOptionsPlist ios-build/ExportOptions-adhoc.plist -exportPath out/ipa
+
+  Thay ABCDE12345 bang Team ID that (Apple Developer > Membership).
+  Ad Hoc yeu cau tai khoan tra phi va UDID cua tung may duoc dang ky.
+-->
+<plist version="1.0">
+<dict>
+	<key>method</key>
+	<string>ad-hoc</string>
+	<key>teamID</key>
+	<string>ABCDE12345</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>compileBitcode</key>
+	<false/>
+	<key>uploadSymbols</key>
+	<true/>
+	<key>thinning</key>
+	<string>&lt;none&gt;</string>
+</dict>
+</plist>

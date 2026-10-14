@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Upload len App Store Connect / TestFlight. Xcode 15 tro len dung
+  "app-store-connect"; Xcode 14 va cu hon dung "app-store".
+  Sau khi export co the upload bang Xcode Organizer / Transporter.app, hoac:
+    xcrun altool [upload-app] -f out/ipa/NroChamPa.ipa -t ios -u <apple-id>
+      -p <app-specific-password>
+-->
+<plist version="1.0">
+<dict>
+	<key>method</key>
+	<string>app-store-connect</string>
+	<key>teamID</key>
+	<string>ABCDE12345</string>
+	<key>signingStyle</key>
+	<string>automatic</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>compileBitcode</key>
+	<false/>
+	<key>uploadSymbols</key>
+	<true/>
+</dict>
+</plist>

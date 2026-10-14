@@ -1,0 +1,45 @@
+name: Build iOS IPA
+on:
+  workflow_dispatch:
+    inputs:
+      method:
+        description: "unsigned | development | ad-hoc | app-store-connect"
+        required: true
+        default: unsigned
+
+jobs:
+  ipa:
+    # macos-15 (arm64) thay cho macos-14: GitHub khai tu image macos-14 / macos-15-intel tu 2/11/2026.
+    runs-on: macos-15
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true # libiPhone-lib.a (196MB) / libil2cpp.a (65MB) duoc luu bang Git LFS
+
+      # Tai lai vat the LFS va kiem tra file that (tranh truong hop con pointer).
+      - name: Kiem tra thu vien da tai du chua
+        run: |
+          git lfs pull
+          for lib in Libraries/libiPhone-lib.a Libraries/libil2cpp.a; do
+            if [ "$(head -c 8 "$lib")" != '!<arch>' ]; then
+              echo "::error::$lib khong phai file ar that - chua tai duoc tu Git LFS"
+              exit 1
+            fi
+          done
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Build IPA
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+          BUNDLE_ID: ${{ vars.BUNDLE_ID }}
+        run: bash ios-build/build-ipa.sh "${{ inputs.method }}"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ipa-${{ inputs.method }}
+          path: ios-build/out/**/*.ipa
+          if-no-files-found: warn
